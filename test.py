@@ -9,4 +9,4 @@ for face_obj in face_objs:
    img = face_obj["face"]
 
    plt.imshow(img)
-   plt.show()
+   plt.sh
