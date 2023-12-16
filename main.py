@@ -3,6 +3,7 @@ import cv2
 from deepface import DeepFace
 import os
 import time
+import tensorflow as tf
 
 
 def check_face(frame):
@@ -15,7 +16,9 @@ def check_face(frame):
                 reference_image = cv2.imread(photo_path)
                 reference_image = cv2.cvtColor(reference_image, cv2.COLOR_BGR2RGB)
 
-                result = DeepFace.verify(frame, reference_image.copy(), distance_metric = "cosine")
+                result = DeepFace.verify(frame, reference_image, model_name= "ArcFace", distance_metric = "cosine", enforce_detection=False)
+
+                # tf.keras.backend.clear_session()
 
                 if result['verified']:
                     recognized_person = person_name
@@ -49,13 +52,10 @@ def count_photos(dir, extension):
 # Max number of photos to take
 max_photos = 50
 
-
 # load Haarcascade model for face detection
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + './haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + './haarcascade_frontalface_alt.xml')
 if face_cascade.empty(): raise Exception("your face_cascade is empty. are you sure, the path is correct ?")
 
-eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + './haarcascade_eye.xml')
-if eye_cascade.empty(): raise Exception("your eye_cascade is empty. are you sure, the path is correct ?")
 
 counter = 0
 
@@ -87,6 +87,9 @@ cv2.resizeWindow('video',1280, 720)
 while True:
     ret, frame = cap.read()
     if ret:
+        # Obtiene las dimensiones del frame
+        height, width, channels = frame.shape
+        #print(f"Frame dimensions: {width} x {height}")
         # convert to gray scale for face detection
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # detect faces with the model Haarcascade
@@ -98,34 +101,39 @@ while True:
         for (x, y, w, h) in faces:
             # Create a rectangle around the faces
             frame = cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 3)
+            #output_path = "data\sandra\prueba.jpg"
+            #output_path_1 = "data\sandra\prueba_1.jpg"
+            # Guardar la imagen
+            #cv2.imwrite(output_path, frame)
 
             # Check if the face is recognized
             if counter % 60 == 0:
                 try:
-                    threading.Thread(target=check_face, args=(frame[y:y + h, x:x + w].copy(),)).start()
-                    recognized_person, confidence = check_face(frame[y:y + h, x:x + w].copy())
-                    # threading.Thread(target=check_face, args=(frame[y:y+h, x:x+w].copy(),)).start()
+                    #threading.Thread(target=check_face, args=(frame[y:y + h, x:x + w],)).start()
+                    #cv2.imwrite(output_path_1, frame[y:y + h, x:x + w])
+                    recognized_person, confidence = check_face(frame[y:y + h, x:x + w])
+                    threading.Thread(target=check_face, args=(frame[y:y+h, x:x+w],)).start()
                 except ValueError:
                     pass
             counter += 1
 
             if recognized_person != 'Desconocido': #and confidence > 0.8:
                 # Count the number of photos saved
-                saved_photos = count_photos(os.path.join(output_base_dir, recognized_person), '.jpg')
+                #saved_photos = count_photos(os.path.join(output_base_dir, recognized_person), '.jpg')
                 # save the ROI
                 roi = frame[y:y + h, x:x + w]
                 # create a file with the ROI
-                if saved_photos < max_photos: #and confidence > 0.8:
-                    timestamp = int(time.time())
-                    unique_identifier = f"{recognized_person.upper()}_{timestamp}"
-                    output_dir = os.path.join(output_base_dir, recognized_person)
-                    # Verify if the directory exists and create it if not
-                    if not os.path.exists(output_dir):
-                        os.makedirs(output_dir)
-
-                    output_path = os.path.join(output_dir, f'{unique_identifier}_roi_{saved_photos}.jpg')
-                    cv2.imwrite(output_path, roi)
-                    saved_photos += 1
+                # if saved_photos < max_photos: #and confidence > 0.8:
+                #     timestamp = int(time.time())
+                #     unique_identifier = f"{recognized_person.upper()}_{timestamp}"
+                #     output_dir = os.path.join(output_base_dir, recognized_person)
+                #     # Verify if the directory exists and create it if not
+                #     if not os.path.exists(output_dir):
+                #         os.makedirs(output_dir)
+                #
+                #     output_path = os.path.join(output_dir, f'{unique_identifier}_roi_{saved_photos}.jpg')
+                #     cv2.imwrite(output_path, roi)
+                #     saved_photos += 1
 
                 # draw a rectangle around the faces with border green
                 frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (72, 131, 72), 3)

@@ -33,7 +33,6 @@ def check_face(frame):
     recognized_person = "Desconocido"
     confidence = 0
     return recognized_person, confidence
-
 def count_photos(dir, extension):
     try:
         files = os.listdir(dir)
