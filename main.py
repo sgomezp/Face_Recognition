@@ -5,7 +5,7 @@ import os, sys
 import math
 
 
-def face_confidence(face_distance, face_match_threshold=0.6):
+def face_confidence(face_distance, face_match_threshold=0.4):
     rango = (1.0 - face_match_threshold)
     linear_val = (1.0 - face_distance) / (rango * 2.0)
 
@@ -64,11 +64,14 @@ class FaceRecognition:
                     face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
                     best_match_index = np.argmin(face_distances)
 
-                    if matches[best_match_index]:
+                    if matches[best_match_index]: # Find a match
                         name = self.known_face_names[best_match_index]
                         confidence = face_confidence(face_distances[best_match_index])
 
                         self.face_names.append(f"{name} (confianza: {confidence})")
+                    else:
+                        self.face_names.append(name)
+
 
             self.process_current_frame = not self.process_current_frame
 
