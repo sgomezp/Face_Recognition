@@ -70,7 +70,9 @@ class FaceRecognition:
                         confidence = face_confidence(face_distances[best_match_index])
 
                         # self.face_names.append(f"{name} (confianza: {confidence})")
-                        self.face_names.append(name)
+                        name_without_extension, _ = os.path.splitext(name)
+
+                        self.face_names.append(name_without_extension)
                         self.faces_confidences.append(confidence)
                     else:
                         self.face_names.append(name)
@@ -112,6 +114,7 @@ class FaceRecognition:
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+
 
         video_capture.release()
         cv2.destroyAllWindows()
