@@ -5,6 +5,10 @@ import os
 import time
 import tensorflow as tf
 
+# Usando modelo por defecto.
+# Si no hay más gente guardada, me reconoce bien.
+# Si hay más gente guardada, me confunde con Ana o con Gaby.
+# Si uso ArcFace me reconoce bien pero se cierra la ventana de la cámara.
 
 def check_face(frame):
     global recognized_person
@@ -16,9 +20,9 @@ def check_face(frame):
                 reference_image = cv2.imread(photo_path)
                 reference_image = cv2.cvtColor(reference_image, cv2.COLOR_BGR2RGB)
 
-                result = DeepFace.verify(frame, reference_image, model_name= "ArcFace", distance_metric = "cosine", enforce_detection=False)
+                result = DeepFace.verify(frame, reference_image, distance_metric = "cosine")
 
-                # tf.keras.backend.clear_session()
+                tf.keras.backend.clear_session()
 
                 if result['verified']:
                     recognized_person = person_name

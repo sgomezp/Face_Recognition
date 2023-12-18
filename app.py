@@ -10,6 +10,10 @@ from Save_data.Save_dt import ft_save_data
 from tkinter import PhotoImage
 import tensorflow as tf
 
+# Merge con el código de Alexis
+# No se ve bien la ventana de la cámara
+# Sigue sin reconocerme bien.
+
 
 # Max number of photos to take
 max_photos = 50
