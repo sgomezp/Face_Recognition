@@ -20,6 +20,7 @@ class FaceRecognition:
     face_locations = []
     face_encodings = []
     face_names = []
+    faces_confidences = []
     known_face_encodings = []
     known_face_names = []
     process_current_frame = True
@@ -68,7 +69,9 @@ class FaceRecognition:
                         name = self.known_face_names[best_match_index]
                         confidence = face_confidence(face_distances[best_match_index])
 
-                        self.face_names.append(f"{name} (confianza: {confidence})")
+                        # self.face_names.append(f"{name} (confianza: {confidence})")
+                        self.face_names.append(name)
+                        self.faces_confidences.append(confidence)
                     else:
                         self.face_names.append(name)
 
@@ -83,18 +86,27 @@ class FaceRecognition:
                 bottom *= 4
                 left *= 4
 
-                # Draw a box around the face
+                # Change color box depending on the name
                 if name == 'Desconocido':
                     color_box = (0, 0, 255)
+                    acceso_text = "Acceso Denegado"
                 else:
                     color_box = (0, 255, 0)
+                    acceso_text = "Acceso Permitido"
 
-                cv2.rectangle(frame, (left, top), (right, bottom), color_box, 2)
+                box_padding = 30 # Draw a box around the face
+                cv2.rectangle(frame, (left + box_padding, top + box_padding), (right + box_padding, bottom + box_padding), color_box, 2)
 
-                # Draw a label with a name below the face
-                cv2.rectangle(frame, (left, bottom - 35), (right, bottom), color_box, cv2.FILLED)
+                # Draw a label with the name above and confidence below the face
+                cv2.rectangle(frame, (left, bottom - 80), (right, bottom), color_box, cv2.FILLED)
                 font = cv2.FONT_HERSHEY_DUPLEX
-                cv2.putText(frame, name, (left + 6, bottom - 6), font, 0.8, (255, 255, 255), 1)
+                name_text = f"{name}"
+                confidence_text = f"{confidence}"
+                cv2.putText(frame, name_text, (left + 6, bottom - 55), font, 0.6, (255, 255, 255), 1)
+                if name != 'Desconocido':
+                    cv2.putText(frame, confidence_text, (left + 6, bottom - 30), font, 0.6, (0, 0, 255), 1)
+
+                cv2.putText(frame, acceso_text, (left + 6, bottom - 5), font, 0.8, (0, 0, 0), 1)
 
             cv2.imshow('Face Recognition', frame)
 
