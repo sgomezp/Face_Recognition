@@ -90,17 +90,17 @@ class FaceRecognition:
 
                 # Change color box depending on the name
                 if name == 'Desconocido':
-                    color_box = (0, 0, 255)
+                    color_box = (0, 0, 255) # Red
                     acceso_text = "Acceso Denegado"
                 else:
-                    color_box = (0, 255, 0)
+                    color_box = (0, 255, 0) # Green
                     acceso_text = "Acceso Permitido"
 
-                box_padding = 30 # Draw a box around the face
-                cv2.rectangle(frame, (left + box_padding, top + box_padding), (right + box_padding, bottom + box_padding), color_box, 2)
+
+                cv2.rectangle(frame, (left, top), (right, bottom), color_box, 1)
 
                 # Draw a label with the name above and confidence below the face
-                cv2.rectangle(frame, (left, bottom - 80), (right, bottom), color_box, cv2.FILLED)
+                #cv2.rectangle(frame, (left, bottom - 60), (right, bottom), color_box, 1)
                 font = cv2.FONT_HERSHEY_DUPLEX
                 name_text = f"{name}"
                 confidence_text = f"{confidence}"
