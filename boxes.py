@@ -39,6 +39,7 @@ def face_confidence(face_distance, face_match_threshold=0.4):
 
 class FaceRecognition:
     """
+    Class to recognize faces
 
     """
     face_locations = []
@@ -96,7 +97,7 @@ class FaceRecognition:
                     # See if the face is a match for the known face(s)
                     matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
                     name = "Desconocido"
-                    confidence = "Desconocido"
+                    confidence = "0%"
 
                     face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
                     best_match_index = np.argmin(face_distances)
@@ -130,27 +131,28 @@ class FaceRecognition:
 
 
                 # Change color box depending on the name
-                if name == 'Desconocido':
+                if name == 'Desconocido' or confidence < '70.0%':
                     color_box = (0, 0, 255) # Red
                     acceso_text = "ACCESO DENEGADO"
-                else:
+                elif confidence >= '70.0%':
                     color_box = (72, 131, 72) # Green
                     acceso_text = "ACCESO PERMITIDO"
 
+                # draw a rectangle around the face
                 cv2.rectangle(frame, (h, x), (y, w), color_box, 2)
                 # draw a filled rectanle below the face
                 cv2.rectangle(frame, (h, w + 1), (y, w + 100), color_box, -1)
 
-
-
                 font = cv2.FONT_HERSHEY_DUPLEX
                 name_text = f"{name}"
                 confidence_text = f"{confidence}"
-                cv2.putText(frame, name_text, (h + 6, w + 20), font, font_scale, (0, 0, 0), thickness)
-                if name != 'Desconocido':
-                    cv2.putText(frame, confidence_text, (h + 6, w + 55), font, font_scale, (0, 0, 255), thickness)
+                cv2.putText(frame, name_text, (h + 6, w + 20), font, font_scale, (255, 255, 255), thickness)
+                if name != 'Desconocido' and confidence >= '70.0%':
+                    cv2.putText(frame, confidence_text, (h + 6, w + 55), font, font_scale, (255, 255, 255), thickness)
+                    cv2.putText(frame, acceso_text, (h + 6, w + 90), font, font_scale, (255, 255, 255), thickness)
+                else:
+                    cv2.putText(frame, acceso_text, (h + 6, w + 90), font, font_scale, (255, 255, 255), thickness)
 
-                cv2.putText(frame, acceso_text, (h + 6, w + 90), font, font_scale, (0, 0, 0), thickness)
 
             cv2.imshow('Face Recognition', frame)
 
