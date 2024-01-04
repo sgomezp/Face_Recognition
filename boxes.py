@@ -59,6 +59,7 @@ class FaceRecognition:
 
     def encode_faces(self):
         """
+        Encode the faces
 
         :return:
         """
@@ -107,7 +108,6 @@ class FaceRecognition:
                         confidence = face_confidence(face_distances[best_match_index])
 
                         name_without_extension, _ = os.path.splitext(name)
-
                         self.face_names.append(name_without_extension)
                         self.faces_confidences.append(confidence)
                     else:
@@ -145,12 +145,15 @@ class FaceRecognition:
 
                 font = cv2.FONT_HERSHEY_DUPLEX
                 name_text = f"{name}"
+                name_text_desconocido = "Desconocido"
                 confidence_text = f"{confidence}"
-                cv2.putText(frame, name_text, (h + 6, w + 20), font, font_scale, (255, 255, 255), thickness)
+
                 if name != 'Desconocido' and confidence >= '70.0%':
+                    cv2.putText(frame, name_text, (h + 6, w + 20), font, font_scale, (255, 255, 255), thickness)
                     cv2.putText(frame, confidence_text, (h + 6, w + 55), font, font_scale, (255, 255, 255), thickness)
                     cv2.putText(frame, acceso_text, (h + 6, w + 90), font, font_scale, (255, 255, 255), thickness)
                 else:
+                    cv2.putText(frame, name_text_desconocido, (h + 6, w + 20), font, font_scale, (255, 255, 255), thickness)
                     cv2.putText(frame, acceso_text, (h + 6, w + 90), font, font_scale, (255, 255, 255), thickness)
 
 
