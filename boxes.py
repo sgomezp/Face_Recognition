@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 import os, sys
 import math
+import streamlit as st
+
 
 font_scale = 2e-3
 thickness_scale = 1e-3
@@ -77,10 +79,16 @@ class FaceRecognition:
         Process the video and recognize the faces
         :return:
         """
+        st.title("Reconocimiento facial")
+
         video_capture = cv2.VideoCapture(0)
 
         if not video_capture.isOpened():
             sys.exit('No se pudo abrir la cámara')
+            st.error("No se pudo abrir la cámara")
+
+        st.header("Identifícate, por favor!!")
+        video_placeholder = st.empty()
 
         while True:
             ret, frame = video_capture.read()
@@ -156,8 +164,10 @@ class FaceRecognition:
                     cv2.putText(frame, name_text_desconocido, (h + 6, w + 20), font, font_scale, (255, 255, 255), thickness)
                     cv2.putText(frame, acceso_text, (h + 6, w + 90), font, font_scale, (255, 255, 255), thickness)
 
+                # Mostrar el video en Streamlit
+                video_placeholder.image(frame, channels="BGR", use_column_width=True)
 
-            cv2.imshow('Face Recognition', frame)
+            #cv2.imshow('Face Recognition', frame)
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
