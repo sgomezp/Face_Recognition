@@ -72,8 +72,8 @@ if state.photo_form_submitted:
         container.success(f"{name}, gracias por registrarte. Ya puedes volver a intentarlo en la página de Reconocimiento Facial")
         time.sleep(2)
         container.empty()
-        switch_page("boxes")
-        
+        switch_page("Reconocimiento Facial")
+
 
 # Botón para reiniciar
 if st.button("Reiniciar Página", on_click=reset_state, key= "reset_2"):
