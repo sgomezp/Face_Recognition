@@ -1,81 +1,89 @@
-# Proyecto Reconocimiento Facial por Computer Vision
-## Integrantes:
-- **Alexis Venegas González**
-- **Sandra Gómez Santamaría.**
+# Facial Recognition Project through Computer Vision
 
-## Planteamiento del problema:
-La empresa organizará un evento importante y ha asignado a sus dos principales expertos en inteligencia artificial (IA)
-la tarea de desarrollar un sistema de reconocimiento facial mediante Computer Vision. El propósito es agilizar el 
-proceso de entrada al evento, eliminando la necesidad de verificar entradas e identificaciones. La propuesta consiste 
-en que los empleados se acerquen a un portátil, donde un sistema basado en IA reconocerá sus rostros en tiempo real, 
-otorgándoles o denegándoles el acceso.
 
-La solicitud implica la implementación de un sistema de machine learning que, 
-a través de una cámara, pueda determinar si la persona frente al dispositivo es un empleado o no. Es importante 
-destacar que no se dispone de datos externos, por lo que los expertos en IA deberán generar los datos necesarios. 
-Antes de implementar el sistema en producción, se requiere una prueba que garantice el correcto reconocimiento de los 
-miembros del equipo (los desarrolladores). Cabe señalar que tanto el modelo como los datos deben ejecutarse en un 
-ordenador portátil, y no se permitirá el uso de servicios en la nube debido a consideraciones de privacidad.
+### Personal version of the [team-developed project](https://github.com/AI-School-F5-P2/Face_Recognition_5.git), using Streamlit as a graphical interface.
+## Problem Statement:
 
-## Nuestra solución:
+The company is hosting a significant event and has tasked its two leading artificial intelligence (AI) experts with 
+developing a facial recognition system using Computer Vision. The objective is to streamline the event entry process 
+by eliminating the need for ticket verification and ID checks. The proposal involves employees approaching a laptop, 
+where an AI-based system will recognize their faces in real-time, granting or denying access.
+
+The request entails implementing a machine learning system that, through a camera, can determine whether the person 
+in front of the device is an employee or not. It is crucial to note that external data is not available, requiring 
+the AI experts to generate the necessary dataset. Before deploying the system in production, a test is required to 
+ensure accurate recognition of team members (developers). It is worth mentioning that both the model and the data must 
+run on a laptop, and the use of cloud services is not allowed due to privacy considerations.
+
+## The Solution:
+
 Para abordar esta problemática, se ha empleado el lenguaje de programación Python, junto con las bibliotecas OpenCV y 
-face_recognition. Se ha desarrollado un modelo de reconocimiento facial que ha sido entrenado utilizando imágenes de 
-los empleados de la empresa. Al iniciar el programa, se activa la cámara en tiempo real, y al detectar la presencia de 
-uno o varios empleados frente a la misma, se procede automáticamente a identificar sus rostros, determinando si tienen 
-autorización para acceder al evento.
+To address this issue, the programming language Python has been employed, along with the libraries OpenCV and 
+face_recognition. A facial recognition model has been developed and trained using images of the company's employees. 
+Upon initiating the program, the real-time camera is activated, and upon detecting the presence of one or more 
+employees in front of it, the system automatically proceeds to identify their faces, determining whether they are 
+authorized to access the event.
 
-El programa compara el rostro capturado con las imágenes de los empleados almacenadas en el sistema. En caso de 
-reconocimiento exitoso, se muestra en pantalla, debajo del rostro identificado, el nombre del empleado y el porcentaje 
-de confiabilidad, garantizando la entrada si este porcentaje es igual o superior al 70%. La indicación visual 
-"ACCESO PERMITIDO" se presenta en estos casos. Por otro lado, si el rostro no es reconocido, el recuadro delimitador 
-se resalta en rojo, y se muestra el mensaje "Desconocido - ACCESO DENEGADO", indicando la prohibición de acceso.
+The program compares the captured face with images of employees stored in the system. In the case of a successful 
+recognition, the employee's name and confidence percentage are displayed below the identified face on the screen. 
+Entry is guaranteed if this percentage is equal to or higher than 70%. The visual indication "ACCESS GRANTED" is 
+presented in these instances. On the other hand, if the face is not recognized, the bounding box is highlighted in 
+red, and the message "Unknown - ACCESS DENIED" is displayed, indicating the prohibition of access.
 
-Si el empleado no ha sido registrado previamente, se le solicita que se tome una fotografía, la cual será almacenada
-en el sistema para su posterior uso. El programa solicita al usuario que ingrese su nombre, y posteriormente, se
-procede a capturar su rostro. Una vez capturada la imagen, se muestra en pantalla, y se le pregunta al usuario si
-desea guardarla. Si la respuesta es afirmativa, se procede a almacenar la imagen en el sistema, y se le indica al
-usuario que se ha registrado exitosamente. En caso contrario, se le solicita que se tome otra fotografía, y se repite
-el proceso.
+If the employee has not been previously registered in the system, they have the opportunity to do so. They will be 
+prompted to take a photograph of themselves. Once the image is captured, it is displayed on the screen, and the user 
+is asked if they want to save it. If the response is affirmative, they will also be prompted to enter their name. 
+Once the image is captured along with the name, it is stored in the system. If the user is not satisfied with the 
+image, they will be asked to take another photograph, and the process is repeated.
 
-El programa permite registrar a un número ilimitado de empleados, y se puede ejecutar tantas veces como sea necesario.
-El modelo de reconocimiento facial se entrena automáticamente cada vez que se ejecuta el programa, utilizando las
-imágenes de los empleados almacenadas en el sistema. Esto garantiza que el modelo se actualice constantemente, y que
-sean reconocidos los rostros de todos los empleados registrados.
+The program allows for the registration of an unlimited number of employees and can be executed as many times as 
+necessary. The facial recognition model is automatically trained each time the program runs, using the images of the 
+employees stored in the system. This ensures that the model is consistently updated, enabling the recognition of all 
+registered employees' faces.
 
-## Descripción de estructura de archivos:
-- **faces**: Carpeta que contiene las imágenes de los empleados y las imágenes de prueba.
-  - **Save_data**: Carpeta que contiene los logs.
-- **main.py**: Archivo que contiene el código principal del proyecto.
-- **README.md**: Archivo que contiene la descripción del proyecto.
-- **requirements.txt**: Archivo que contiene las dependencias del proyecto.
+## File Structure Description:
+- **.gitignore**: File containing the list of files that will not be uploaded to the repository.
+- **faces**: Folder containing images of employees and test images.
+- **Reconocimiento_Facial.py**: File containing the main code of the project.
+- **Registro_invitados.py**: File containing the code for registering guests.
+- **README.md**: File containing the project description.
+- **requirements.txt**: File containing the project dependencies.
  
-## Instrucciones de uso:
-1. Clonar el repositorio. [Link](.....)
-2. Ir a tu directorio del proyecto
-3. Opcional, pero muy recomendado: crear un entorno virtual
-4. Instalar las dependencias requeridas ejecutando el siguiente comando:
+## Usage Instructions::
+1. Clone the repository. [Link](.....)
+2. Navigate to your project directory.
+3. Optional, but highly recommended: create a virtual environment.
+4. Install the required dependencies by executing the following command:
 ```
 pip install -r requirements.txt
 ```
-5. Ejecutar el archivo main.py con el siguiente comando:
+5. Execute the file Reconocimiento_Facial.py with the following command:
 ```
-python main.py
+streamlit run Reconocimiento_Facial.py
 ```
 
-## Observaciones:
-- Si se utiliza Windows, se debe instalar [Visual Studio](https://visualstudio.microsoft.com/) con las herramientas de C++.
-- También se , se debe instalar CMake.
-- A continuación, se debe instalar dlib con el siguiente comando:
+## Observations:
+- If you are using Windows, you need to install [Visual Studio](https://visualstudio.microsoft.com/) with C++ tools.
+- Additionally, CMake must be installed.
+- Next, install dlib with the following command:
 ```
 pip install dlib
 ```
--Seguida de la instalación de face_recognition:
+-Following the installation of face_recognition:
 ```
 pip install face_recognition
 ```
-## Referencias:
+## Future Improvements:
+- Implement a logging system to keep a record of accesses.
+- Integrate a voice recognition system to identify employees.
+- Implement a fingerprint recognition system to identify employees.
+- Dockerize the application.
+
+## References:
 - [Face_recognition library](https://github.com/ageitgey/face_recognition?tab=readme-ov-file)
 - [OpenCV](https://opencv.org/)
+- [Streamlit](https://streamlit.io/)
+- [Streamlit-Extras](https://arnaudmiribel.github.io/streamlit-extras/)
  
 
   
