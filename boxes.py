@@ -7,7 +7,7 @@ import streamlit as st
 
 
 font_scale = 2e-3
-thickness_scale = 1e-3
+thickness_scale = 1e-5
 
 def optimal_font_dims(img, font_scale , thickness_scale):
     """
@@ -72,14 +72,13 @@ class FaceRecognition:
             self.known_face_encodings.append(face_encoding)
             self.known_face_names.append(image)
 
-        print(self.known_face_names)
 
     def run_recognition(self):
         """
         Process the video and recognize the faces
         :return:
         """
-        st.title("Reconocimiento facial")
+        st.title("Reconocimiento Facial - Fiesta de F5")
 
         video_capture = cv2.VideoCapture(0)
 
@@ -87,7 +86,8 @@ class FaceRecognition:
             sys.exit('No se pudo abrir la cámara')
             st.error("No se pudo abrir la cámara")
 
-        st.header("Identifícate, por favor!!")
+        st.write("Por favor, colócate delante de la cámara para que podamos reconocerte")
+        st.write("Si estás invitado, puedes registrarte en el sistema en la página de Registro Invitado")
         video_placeholder = st.empty()
 
         while True:
