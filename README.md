@@ -17,7 +17,6 @@ run on a laptop, and the use of cloud services is not allowed due to privacy con
 
 ## The Solution:
 
-Para abordar esta problemática, se ha empleado el lenguaje de programación Python, junto con las bibliotecas OpenCV y 
 To address this issue, the programming language Python has been employed, along with the libraries OpenCV and 
 face_recognition. A facial recognition model has been developed and trained using images of the company's employees. 
 Upon initiating the program, the real-time camera is activated, and upon detecting the presence of one or more 
