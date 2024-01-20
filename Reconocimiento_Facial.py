@@ -65,6 +65,13 @@ class FaceRecognition:
 
         :return:
         """
+        faces_dir = 'faces'
+
+        if not os.path.exists(faces_dir) or not os.listdir(faces_dir):
+            st.error('No se han encontrado caras registradas. Por favor registra tu cara en la página de Registro Invitado')
+            sys.exit('No se han encontrado caras registradas')
+            return
+
         for image in os.listdir('faces'):
             face_image = face_recognition.load_image_file(f'faces/{image}')
             face_encoding = face_recognition.face_encodings(face_image)[0]
@@ -90,6 +97,8 @@ class FaceRecognition:
         st.write("Si estás invitado, puedes registrarte en el sistema en la página de Registro Invitado")
         video_placeholder = st.empty()
 
+        faces_registered_message_shown = False
+
         while True:
             ret, frame = video_capture.read()
 
@@ -102,24 +111,32 @@ class FaceRecognition:
                 self.face_encodings = face_recognition.face_encodings(rgb_small_frame, self.face_locations)
 
                 self.face_names = []
-                for face_encoding in self.face_encodings:
-                    # See if the face is a match for the known face(s)
-                    matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
-                    name = "Desconocido"
-                    confidence = "0%"
 
-                    face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
-                    best_match_index = np.argmin(face_distances)
+                try:
+                    for face_encoding in self.face_encodings:
+                        # See if the face is a match for the known face(s)
+                        matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
+                        name = "Desconocido"
+                        confidence = "0%"
 
-                    if matches[best_match_index]: # Find a match
-                        name = self.known_face_names[best_match_index]
-                        confidence = face_confidence(face_distances[best_match_index])
+                        face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
+                        best_match_index = np.argmin(face_distances)
 
-                        name_without_extension, _ = os.path.splitext(name)
-                        self.face_names.append(name_without_extension)
-                        self.faces_confidences.append(confidence)
-                    else:
-                        self.face_names.append(name)
+                        if matches[best_match_index]: # Find a match
+                            name = self.known_face_names[best_match_index]
+                            confidence = face_confidence(face_distances[best_match_index])
+
+                            name_without_extension, _ = os.path.splitext(name)
+                            self.face_names.append(name_without_extension)
+                            self.faces_confidences.append(confidence)
+                        else:
+                            self.face_names.append(name)
+                except Exception as e:
+                    print(f"Se produjo un error {e}")
+                    st.error(f"Se produjo un error {e}")
+
+
+
 
             self.process_current_frame = not self.process_current_frame
 

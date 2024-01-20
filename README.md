@@ -52,7 +52,8 @@ registered employees' faces.
 1. Clone the repository. [Link](.....)
 2. Navigate to your project directory.
 3. Optional, but highly recommended: create a virtual environment.
-4. Install the required dependencies by executing the following command:
+4. Upload the images of the employees to the "faces" folder.
+5. Install the required dependencies by executing the following command:
 ```
 pip install -r requirements.txt
 ```
