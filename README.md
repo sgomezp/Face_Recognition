@@ -2,7 +2,7 @@
 
 
 ### Personal version of the [team-developed project](https://github.com/AI-School-F5-P2/Face_Recognition_5.git), using Streamlit as a graphical interface.
-## Problem Statement:
+## Problem Statement
 
 The company is hosting a significant event and has tasked its two leading artificial intelligence (AI) experts with 
 developing a facial recognition system using Computer Vision. The objective is to streamline the event entry process 
@@ -15,7 +15,7 @@ the AI experts to generate the necessary dataset. Before deploying the system in
 ensure accurate recognition of team members (developers). It is worth mentioning that both the model and the data must 
 run on a laptop, and the use of cloud services is not allowed due to privacy considerations.
 
-## The Solution:
+## The Solution
 
 To address this issue, the programming language Python has been employed, along with the libraries OpenCV and 
 face_recognition. A facial recognition model has been developed and trained using images of the company's employees. 
@@ -40,7 +40,7 @@ necessary. The facial recognition model is automatically trained each time the p
 employees stored in the system. This ensures that the model is consistently updated, enabling the recognition of all 
 registered employees' faces.
 
-## File Structure Description:
+## File Structure Description
 - **.gitignore**: File containing the list of files that will not be uploaded to the repository.
 - **faces**: Folder containing images of employees and test images.
 - **Facial_Recognition.py**: File containing the main code of the project.
@@ -48,7 +48,7 @@ registered employees' faces.
 - **README.md**: File containing the project description.
 - **requirements.txt**: File containing the project dependencies.
  
-## Usage Instructions::
+## Usage Instructions
 1. Clone the repository. [Link](https://github.com/sgomezp/Face_Recognition)
 2. Navigate to your project directory.
 3. Optional, but highly recommended: create a virtual environment.
@@ -80,19 +80,19 @@ Once executed, run the script again:
 streamlit run Facial_Recognition.py
 ```
 
-## Observations:
+## Observations
 - If you are using Windows, you need to install [Visual Studio](https://visualstudio.microsoft.com/) with C++ tools.
 - Additionally, CMake must be installed.
 - If you have an antivirus installed, it is possible that the camera may give an error. Temporarily disable the antivirus's control of the camera.
 
 
-## Future Improvements:
+## Future Improvements
 - Implement a logging system to keep a record of accesses.
 - Integrate a voice recognition system to identify employees.
 - Implement a fingerprint recognition system to identify employees.
 - Dockerize the application.
 
-## References:
+## References
 - [Face_recognition library](https://github.com/ageitgey/face_recognition?tab=readme-ov-file)
 - [OpenCV](https://opencv.org/)
 - [Streamlit](https://streamlit.io/)
