@@ -182,7 +182,7 @@ class FaceRecognition:
                     cv2.putText(frame, acceso_text, (h + 6, w + 90), font, font_scale, (255, 255, 255), thickness)
 
                 # Mostrar el video en Streamlit
-                video_placeholder.image(frame, channels="BGR", use_column_width=True)
+                video_placeholder.image(frame, channels="BGR", use_container_width=True)
 
             #cv2.imshow('Face Recognition', frame)
 
