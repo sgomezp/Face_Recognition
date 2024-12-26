@@ -1,5 +1,4 @@
 import time
-
 import streamlit as st
 import numpy as np
 import os
@@ -36,7 +35,7 @@ if st.button("Reiniciar Página", on_click=reset_state, key= "reset_1"):
 picture = st.camera_input("Toma una foto de tu rostro")
 
 if picture:
-    st.image(picture, caption="Tu foto", use_column_width=True)
+    st.image(picture, caption="Tu foto", use_container_width=True)
 
     with st.form(key='photo_form'):
         foto_ok = st.radio("¿Quieres guardar esta foto?", ("Sí", "No"))
