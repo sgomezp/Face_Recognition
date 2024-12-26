@@ -1,4 +1,4 @@
-# Facial Recognition Project through Computer Vision
+# Real-time Facial Recognition Project using Computer Vision
 
 
 ### Personal version of the [team-developed project](https://github.com/AI-School-F5-P2/Face_Recognition_5.git), using Streamlit as a graphical interface.
@@ -43,13 +43,13 @@ registered employees' faces.
 ## File Structure Description:
 - **.gitignore**: File containing the list of files that will not be uploaded to the repository.
 - **faces**: Folder containing images of employees and test images.
-- **Reconocimiento_Facial.py**: File containing the main code of the project.
-- **Registro_invitados.py**: File containing the code for registering guests.
+- **Facial_Recognition.py**: File containing the main code of the project.
+- **Guest_Registration.py**: File containing the code for registering guests.
 - **README.md**: File containing the project description.
 - **requirements.txt**: File containing the project dependencies.
  
 ## Usage Instructions::
-1. Clone the repository. [Link](.....)
+1. Clone the repository. [Link](https://github.com/sgomezp/Face_Recognition)
 2. Navigate to your project directory.
 3. Optional, but highly recommended: create a virtual environment.
 4. Upload the images of the employees to the "faces" folder.
@@ -57,22 +57,35 @@ registered employees' faces.
 ```
 pip install -r requirements.txt
 ```
-5. Execute the file Reconocimiento_Facial.py with the following command:
+6. Execute the file Facial_Recognition.py with the following command:
 ```
-streamlit run Reconocimiento_Facial.py
+streamlit run Facial_Recognition.py
+```
+
+**Note:**
+If you encounter the following error when running the program:
+
+> Please install face_recognition_models with this command before using face_recognition:
+> 
+> pip install git+https://github.com/ageitgey/face_recognition_models
+
+Run the following commands:
+```
+pip install wheel setuptools pip --upgrade pip install 
+pip install git+https://github.com/ageitgey/face_recognition_models
+```
+
+Once executed, run the script again:
+```
+streamlit run Facial_Recognition.py
 ```
 
 ## Observations:
 - If you are using Windows, you need to install [Visual Studio](https://visualstudio.microsoft.com/) with C++ tools.
 - Additionally, CMake must be installed.
-- Next, install dlib with the following command:
-```
-pip install dlib
-```
--Following the installation of face_recognition:
-```
-pip install face_recognition
-```
+- If you have an antivirus installed, it is possible that the camera may give an error. Temporarily disable the antivirus's control of the camera.
+
+
 ## Future Improvements:
 - Implement a logging system to keep a record of accesses.
 - Integrate a voice recognition system to identify employees.
