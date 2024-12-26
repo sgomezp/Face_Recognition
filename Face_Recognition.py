@@ -68,8 +68,8 @@ class FaceRecognition:
         faces_dir = 'faces'
 
         if not os.path.exists(faces_dir) or not os.listdir(faces_dir):
-            st.error('No se han encontrado caras registradas. Por favor registra tu cara en la página de Registro Invitado')
-            sys.exit('No se han encontrado caras registradas')
+            st.error('No registered faces found. Please register your face on the Guest Registration page.')
+            sys.exit('No registered faces found')
             return
 
         for image in os.listdir('faces'):
@@ -85,16 +85,16 @@ class FaceRecognition:
         Process the video and recognize the faces
         :return:
         """
-        st.title("Reconocimiento Facial - Fiesta de F5")
+        st.title("Face Recognition - F5 Party")
 
         video_capture = cv2.VideoCapture(0)
 
         if not video_capture.isOpened():
-            sys.exit('No se pudo abrir la cámara')
-            st.error("No se pudo abrir la cámara")
+            sys.exit('Could not open the camera')
+            st.error("Could not open the camera")
 
-        st.write("Por favor, colócate delante de la cámara para que podamos reconocerte")
-        st.write("Si estás invitado, puedes registrarte en el sistema en la página de Registro Invitado")
+        st.write("Please, position yourself in front of the camera so we can recognize you.")
+        st.write("If you're invited to the party but haven't registered in the system yet, please do so on the Guest Registration page")
         video_placeholder = st.empty()
 
         faces_registered_message_shown = False
@@ -116,7 +116,7 @@ class FaceRecognition:
                     for face_encoding in self.face_encodings:
                         # See if the face is a match for the known face(s)
                         matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
-                        name = "Desconocido"
+                        name = "Unknown"
                         confidence = "0%"
 
                         face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
@@ -132,8 +132,8 @@ class FaceRecognition:
                         else:
                             self.face_names.append(name)
                 except Exception as e:
-                    print(f"Se produjo un error {e}")
-                    st.error(f"Se produjo un error {e}")
+                    print(f"An error occurred {e}")
+                    st.error(f"An error occurred {e}")
 
 
 
@@ -156,12 +156,12 @@ class FaceRecognition:
 
 
                 # Change color box depending on the name
-                if name == 'Desconocido' or confidence < '70.0%':
+                if name == 'Unknown' or confidence < '70.0%':
                     color_box = (0, 0, 255) # Red
-                    acceso_text = "ACCESO DENEGADO"
+                    acceso_text = "ACCESS DENIED"
                 elif confidence >= '70.0%':
                     color_box = (72, 131, 72) # Green
-                    acceso_text = "ACCESO PERMITIDO"
+                    acceso_text = "ACCESS GRANTED"
 
                 # draw a rectangle around the face
                 cv2.rectangle(frame, (h, x), (y, w), color_box, 2)
@@ -170,10 +170,10 @@ class FaceRecognition:
 
                 font = cv2.FONT_HERSHEY_DUPLEX
                 name_text = f"{name}"
-                name_text_desconocido = "Desconocido"
+                name_text_desconocido = "Unknown"
                 confidence_text = f"{confidence}"
 
-                if name != 'Desconocido' and confidence >= '70.0%':
+                if name != 'Unknown' and confidence >= '70.0%':
                     cv2.putText(frame, name_text, (h + 6, w + 20), font, font_scale, (255, 255, 255), thickness)
                     cv2.putText(frame, confidence_text, (h + 6, w + 55), font, font_scale, (255, 255, 255), thickness)
                     cv2.putText(frame, acceso_text, (h + 6, w + 90), font, font_scale, (255, 255, 255), thickness)
