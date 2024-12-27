@@ -2,6 +2,7 @@
 
 
 ### Personal version of the [team-developed project](https://github.com/AI-School-F5-P2/Face_Recognition_5.git), using Streamlit as a graphical interface.
+
 ## Problem Statement
 
 The company is hosting a significant event and has tasked its two leading artificial intelligence (AI) experts with 
@@ -54,11 +55,11 @@ registered employees' faces.
 3. Optional, but highly recommended: create a virtual environment.
 4. Upload the images of the employees to the "faces" folder.
 5. Install the required dependencies by executing the following command:
-```
+```bash
 pip install -r requirements.txt
 ```
 6. Execute the file Facial_Recognition.py with the following command:
-```
+```bash
 streamlit run Facial_Recognition.py
 ```
 
@@ -70,13 +71,13 @@ If you encounter the following error when running the program:
 > pip install git+https://github.com/ageitgey/face_recognition_models
 
 Run the following commands:
-```
+```bash
 pip install wheel setuptools pip --upgrade pip install 
 pip install git+https://github.com/ageitgey/face_recognition_models
 ```
 
 Once executed, run the script again:
-```
+```bash
 streamlit run Facial_Recognition.py
 ```
 
